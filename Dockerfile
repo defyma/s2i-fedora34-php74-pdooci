@@ -51,7 +51,7 @@ RUN dnf -y module reset php
 RUN dnf -y module install php:remi-7.4
 
 RUN INSTALL_PKGS="php php-cli php-devel php-mysqlnd php-zip php-bcmath php-json \
-                  php-gd php-intl php-ldap php-mbstring php-pdo php-mcrypt php-pear \
+                  php-gd php-intl php-ldap php-mbstring php-pdo php-mcrypt php-pear php-pgsql \
                   php-process php-soap php-curl php-opcache php-xml \
                   php-gmp php-pecl-apcu mod_ssl hostname" && \
     dnf -y install $INSTALL_PKGS
@@ -72,6 +72,9 @@ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
 
 RUN echo "/usr/lib/oracle/21/client64/lib" > /etc/ld.so.conf.d/oracle21.conf
 RUN ldconfig
+
+RUN rm /root/oracle-instantclient-basic-21.1.0.0.0-1.x86_64.rpm
+RUN rm /root/oracle-instantclient-devel-21.1.0.0.0-1.x86_64.rpm
 
 ENV PHP_CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/php/ \
     APP_DATA=${APP_ROOT}/src \
